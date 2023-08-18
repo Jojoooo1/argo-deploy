@@ -6,7 +6,7 @@ Network with wifi router configuration can block some port and leave the k3s wit
 
 ## Dependencies
 
-* [kubectl](https://kubernetes.io/docs/tasks/tools)
+* [kubectl](https://kubernetes.io/docs/tasks/tools) greater than 1.27
 * [helm](https://helm.sh/docs/intro/install)
 * [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize)
 * [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation) greater than 2.8
