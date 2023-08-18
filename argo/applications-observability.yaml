@@ -19,7 +19,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      
   source:
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
     targetRevision: main
