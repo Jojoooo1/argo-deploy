@@ -5,3 +5,6 @@ help: ## Show this help message.
 
 start-k3s: ## Start k3s cluster with argocd
 	@./scripts/start.sh
+
+delete-k3s: ## Delete k3s cluster
+	[[ -f /usr/local/bin/k3s-uninstall.sh ]] && /usr/local/bin/k3s-uninstall.sh
