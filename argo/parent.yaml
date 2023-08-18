@@ -21,7 +21,7 @@ spec:
       selfHeal: true
       
   sources:
-    - repoURL: https://github.com/Jojoooo1/argo-deploy-applications-infra.git
+    - repoURL: https://github.com/Jojoooo1/argo-deploy-applications-infra
       targetRevision: main
       path: overlays/local
       plugin:
@@ -34,7 +34,7 @@ spec:
           - name: PROJECT
             value: sandbox
 
-    - repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
+    - repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability
       targetRevision: main
       path: overlays/local
       plugin:
