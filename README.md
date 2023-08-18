@@ -31,3 +31,7 @@ make start
 ### Observability applications
 
 <https://github.com/Jojoooo1/argo-deploy-applications-observability>
+
+### Limitations
+
+* open issue working with multiple source and CMPs <https://github.com/argoproj/argo-cd/pull/12508>
