@@ -45,6 +45,7 @@ installArgoCD() {
   # kubectl apply -f $ARGO_DIR/parent.yaml
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
+  kubectl apply -f $ARGO_DIR/applications-data.yaml
 }
 
 syncArgoCD() {
@@ -59,6 +60,7 @@ syncArgoCD() {
 syncArgoCDApplications() {
   until argocd app sync applications-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
   until argocd app sync applications-observability; do echo "awaiting applications-observability to be sync..." && sleep 10; done
+  until argocd app sync applications-data; do echo "awaiting applications-data to be sync..." && sleep 10; done
 }
 
 deployNginxIngress() {
