@@ -62,8 +62,7 @@ spec:
                   command: ["sh", "-c"]
                   args: ["envsubst < raw-kustomization.yaml > processed-kustomization.yaml && cp processed-kustomization.yaml /dev/stdout"]
                 discover:
-                  find:
-                    command: ['echo', 'hi']
+                  fileName: "kustomization.*"
 
         ## Controller ##
         controller:
