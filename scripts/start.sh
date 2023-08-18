@@ -36,21 +36,26 @@ installArgoCD() {
     --set configs.cm."kustomize\.buildOptions"="--load-restrictor LoadRestrictionsNone" \
     --set configs.cm."timeout\.reconciliation"="10s"
 
-  # Install ArgoCD applications
   kubectl -n argocd rollout status deployment/argocd-server
+
+  # Install ArgoCD applications and await new argocd-server to start with CMP plugins.
   kubectl apply -f $ARGO_DIR/argocd-helm.yaml
-  # kubectl apply -f $ARGO_DIR/parent.yaml
+  syncArgoCD
+
+  kubectl apply -f $ARGO_DIR/parent.yaml
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
 }
 
-syncArgoCDApplications() {
-  password=$1
-  echo $password
+syncArgoCD() {
+  export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
   message ">>> Awaiting ArgoCD applications to sync..."
-  until argocd login --core --username admin --password $password --insecure; do :; done
+  until argocd login --core --username admin --password $ARGOCD_PWD --insecure; do :; done
   kubectl config set-context --current --namespace=argocd
   until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
+}
+
+syncArgoCDApplications() {
   until argocd app sync applications-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
   until argocd app sync applications-observability; do echo "awaiting applications-observability to be sync..." && sleep 10; done
 }
@@ -70,8 +75,7 @@ addUrlToHost() {
 
 installK3s
 installArgoCD
-ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-syncArgoCDApplications $ARGOCD_PWD
+syncArgoCDApplications
 deployNginxIngress
 
 addUrlToHost "argo.local.com.br"
