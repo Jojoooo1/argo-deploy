@@ -33,6 +33,11 @@ spec:
           cm:
             url: http://argo.local.com.br
             exec.enabled: "true"
+            kustomize.buildOptions: "--load-restrictor LoadRestrictionsNone"
+
+            # DO NOT USE in production, this is only used to improve reconciliation in testing env.
+            timeout.reconciliation: "10s"
+
             # dex.config: |
             #   connectors:
             #     - id: google
