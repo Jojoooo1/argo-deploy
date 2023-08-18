@@ -21,7 +21,7 @@ make start
 
 ### Argocd dashboard
 
-* [http://argo-local.jonathan.com.br](http://argo-local.jonathan.com.br/)
+* [http://argo.local.com.br](http://argo.local.com.br/)
   * login: admin password: see the logs
 
 ### Infra applications

@@ -74,11 +74,11 @@ ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpat
 syncArgoCDApplications $ARGOCD_PWD
 deployNginxIngress
 
-addUrlToHost "argo-local.jonathan.com.br"
-addUrlToHost "identity-local.jonathan.com.br"
-addUrlToHost "rabbitmq-local.jonathan.com.br"
-addUrlToHost "grafana-local.jonathan.com.br"
-addUrlToHost "prometheus-local.jonathan.com.br"
-addUrlToHost "alertmanager-local.jonathan.com.br"
+addUrlToHost "argo.local.com.br"
+addUrlToHost "identity.local.com.br"
+addUrlToHost "rabbitmq.local.com.br"
+addUrlToHost "grafana.local.com.br"
+addUrlToHost "prometheus.local.com.br"
+addUrlToHost "alertmanager.local.com.br"
 
-message ">>> argo: http://argo-local.jonathan.com.br - username: 'admin', password: '$ARGOCD_PWD'"
+message ">>> argo: http://argo.local.com.br - username: 'admin', password: '$ARGOCD_PWD'"
