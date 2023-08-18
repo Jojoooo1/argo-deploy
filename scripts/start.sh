@@ -16,7 +16,6 @@ message() {
 
 installK3s() {
   [[ -f /usr/local/bin/k3s-uninstall.sh ]] && /usr/local/bin/k3s-uninstall.sh
-  # export K3S_CONFIG_FILE="$DIR/install/k3s/k3s-config.yaml"
   curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.27.4+k3s1" INSTALL_K3S_EXEC="server --write-kubeconfig ~/.kube/k3s-config --write-kubeconfig-mode 666 --disable traefik" sh
   export KUBECONFIG=~/.kube/k3s-config
 }
@@ -37,10 +36,8 @@ installArgoCD() {
     --set configs.cm."kustomize\.buildOptions"="--load-restrictor LoadRestrictionsNone" \
     --set configs.cm."timeout\.reconciliation"="10s"
 
-  # Deploy secret for ArgoCD
-  kubectl -n argocd rollout status deployment/argocd-server
-
   # Install ArgoCD applications
+  kubectl -n argocd rollout status deployment/argocd-server
   kubectl apply -f $ARGO_DIR/argocd-helm.yaml
   kubectl apply -f $ARGO_DIR/parent.yaml
 }
