@@ -39,7 +39,9 @@ installArgoCD() {
   # Install ArgoCD applications
   kubectl -n argocd rollout status deployment/argocd-server
   kubectl apply -f $ARGO_DIR/argocd-helm.yaml
-  kubectl apply -f $ARGO_DIR/parent.yaml
+  # kubectl apply -f $ARGO_DIR/parent.yaml
+  kubectl apply -f $ARGO_DIR/applications-infra.yaml
+  kubectl apply -f $ARGO_DIR/applications-observability.yaml
 }
 
 syncArgoCDApplications() {
@@ -49,7 +51,8 @@ syncArgoCDApplications() {
   until argocd login --core --username admin --password $password --insecure; do :; done
   kubectl config set-context --current --namespace=argocd
   until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
-  until argocd app sync parent-applications; do echo "awaiting parent-applications to be sync..." && sleep 10; done
+  until argocd app sync applications-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
+  until argocd app sync applications-observability; do echo "awaiting applications-observability to be sync..." && sleep 10; done
 }
 
 deployNginxIngress() {

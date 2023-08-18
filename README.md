@@ -24,13 +24,17 @@ make start
 * [http://argo.local.com.br](http://argo.local.com.br/)
   * login: admin password: see the logs
 
-### Infra applications
+### Apps-of-Apps
 
-<https://github.com/Jojoooo1/argo-deploy-applications-infra>
+[This pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) allow to declaratively specify one Argo CD app that consists only of other apps.
 
-### Observability applications
+#### Infra applications
 
-<https://github.com/Jojoooo1/argo-deploy-applications-observability>
+Argo will create a applications-infra pointing to multiple argo application located in <https://github.com/Jojoooo1/argo-deploy-applications-infra>
+
+#### Observability applications
+
+Argo will create a applications-observability pointing to multiple argo application located in <https://github.com/Jojoooo1/argo-deploy-applications-observability>
 
 ### Limitations
 
