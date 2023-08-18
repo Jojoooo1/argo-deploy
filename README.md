@@ -13,7 +13,7 @@ Network with wifi router configuration can block some port and leave the k3s wit
 
 ## Getting Started
 
-Create local cluster with [k3s](https://k3s.io/) with [ingress-nginx](https://kubernetes.github.io/ingress-nginx) and [argocd](https://argo-cd.readthedocs.io/en/stable):
+Create local cluster with [k3s](https://k3s.io/), [ingress-nginx](https://kubernetes.github.io/ingress-nginx) and [argocd](https://argo-cd.readthedocs.io/en/stable):
 
 ```bash
 make start
