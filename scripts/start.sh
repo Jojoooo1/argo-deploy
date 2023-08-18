@@ -42,7 +42,7 @@ installArgoCD() {
   kubectl apply -f $ARGO_DIR/argocd-helm.yaml
   syncArgoCD
 
-  kubectl apply -f $ARGO_DIR/parent.yaml
+  # kubectl apply -f $ARGO_DIR/parent.yaml
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
 }
