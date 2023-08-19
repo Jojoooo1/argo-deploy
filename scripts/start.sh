@@ -87,5 +87,8 @@ addUrlToHost "rabbitmq.local.com.br"
 addUrlToHost "grafana.local.com.br"
 addUrlToHost "prometheus.local.com.br"
 addUrlToHost "alertmanager.local.com.br"
+addUrlToHost "altinity.local.com.br"
+addUrlToHost "redpanda.local.com.br"
+addUrlToHost "conduktor.local.com.br"
 
 message ">>> argo: http://argo.local.com.br - username: 'admin', password: '$ARGOCD_PWD'"
