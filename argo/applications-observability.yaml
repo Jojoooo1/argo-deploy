@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: applications-observability
+  name: parent-applications-observability
   namespace: argocd
 
   # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
@@ -16,9 +16,9 @@ spec:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
 
-    automated:
-      prune: true
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
 
   source:
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
