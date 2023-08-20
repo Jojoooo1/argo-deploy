@@ -20,7 +20,7 @@ installK3s() {
   export KUBECONFIG=~/.kube/k3s-config
 }
 
-installArgoCD() {
+installAndSyncArgoCD() {
   message ">>> deploying ArgoCD"
 
   local ARGO_DIR="$DIR/../argo"
@@ -42,25 +42,20 @@ installArgoCD() {
   kubectl apply -f $ARGO_DIR/argocd-helm.yaml
   syncArgoCD
 
-  # kubectl apply -f $ARGO_DIR/parent.yaml
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
   kubectl apply -f $ARGO_DIR/applications-data.yaml
+
+  until argocd app sync parent-applications-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
 }
 
 syncArgoCD() {
-  export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
   message ">>> Awaiting ArgoCD applications to sync..."
+  export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
   until argocd login --core --username admin --password $ARGOCD_PWD --insecure; do :; done
   kubectl config set-context --current --namespace=argocd
   until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
   kubectl -n argocd rollout status deployment/argocd-repo-server
-}
-
-syncArgoCDApplications() {
-  until argocd app sync applications-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
-  until argocd app sync applications-observability; do echo "awaiting applications-observability to be sync..." && sleep 10; done
-  until argocd app sync applications-data; do echo "awaiting applications-data to be sync..." && sleep 10; done
 }
 
 deployNginxIngress() {
@@ -77,8 +72,7 @@ addUrlToHost() {
 }
 
 installK3s
-installArgoCD
-syncArgoCDApplications
+installAndSyncArgoCD
 deployNginxIngress
 
 addUrlToHost "argo.local.com.br"
