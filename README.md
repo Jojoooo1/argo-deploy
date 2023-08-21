@@ -1,4 +1,4 @@
-# Argo infra personal labs
+# Argo deploy personal labs
 
 ## Network
 
