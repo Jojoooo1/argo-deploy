@@ -28,13 +28,11 @@ make start
 
 [This pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) allow to declaratively specify one Argo CD app that consists only of other apps.
 
-#### Infra applications
-
-Argo will create a applications-infra pointing to multiple argo application located in <https://github.com/Jojoooo1/argo-deploy-applications-infra>
-
-#### Observability applications
-
-Argo will create a applications-observability pointing to multiple argo application located in <https://github.com/Jojoooo1/argo-deploy-applications-observability>
+| Applications  | Urls |
+| ------------- | ------------- |
+| Infra | <https://github.com/Jojoooo1/argo-deploy-applications-infra> |
+| Observability | <https://github.com/Jojoooo1/argo-deploy-applications-observability> |
+| Data  | <https://github.com/Jojoooo1/argo-deploy-applications-data>  |
 
 ### Limitations
 
