@@ -76,13 +76,15 @@ installAndSyncArgoCD
 deployNginxIngress
 
 addUrlToHost "argo.local.com.br"
+addUrlToHost "apisix.local.com.br"
 addUrlToHost "identity.local.com.br"
 addUrlToHost "rabbitmq.local.com.br"
 addUrlToHost "grafana.local.com.br"
 addUrlToHost "prometheus.local.com.br"
 addUrlToHost "alertmanager.local.com.br"
-addUrlToHost "altinity.local.com.br"
+addUrlToHost "kafka.local.com.br"
 addUrlToHost "redpanda.local.com.br"
 addUrlToHost "conduktor.local.com.br"
+addUrlToHost "clickhouse.local.com.br"
 
 message ">>> argo: http://argo.local.com.br - username: 'admin', password: '$ARGOCD_PWD'"
