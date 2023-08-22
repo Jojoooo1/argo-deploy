@@ -33,7 +33,3 @@ make start
 | Infra | <https://github.com/Jojoooo1/argo-deploy-applications-infra> |
 | Observability | <https://github.com/Jojoooo1/argo-deploy-applications-observability> |
 | Data  | <https://github.com/Jojoooo1/argo-deploy-applications-data>  |
-
-### Limitations
-
-* open issue working with multiple source and CMPs <https://github.com/argoproj/argo-cd/pull/12508>
