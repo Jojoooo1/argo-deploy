@@ -54,8 +54,8 @@ syncArgoCD() {
   export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
   until argocd login --core --username admin --password $ARGOCD_PWD --insecure; do :; done
   kubectl config set-context --current --namespace=argocd
-  until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
   until argocd app sync observability-kube-prometheus-crds; do echo "awaiting kube-prometheus-crds to be sync..." && sleep 10; done
+  until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
   kubectl -n argocd rollout status deployment/argocd-repo-server
 }
 

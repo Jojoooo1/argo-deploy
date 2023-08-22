@@ -74,21 +74,21 @@ spec:
               cpu: 500m
               memory: 1024Mi
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
-              enabled: true
               namespace: argocd
       
         ## DEX ##
         dex:
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
-              enabled: true
               namespace: argocd
 
         ## RepoServer ##
@@ -144,11 +144,11 @@ spec:
                   mountPath: /usr/local/bin/envsubst
 
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
-              enabled: true
               namespace: argocd
 
         ## Server ##
@@ -161,11 +161,11 @@ spec:
               cpu: 400m
               memory: 512Mi
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
-              enabled: true
               namespace: argocd
 
         ## Redis ##
@@ -180,9 +180,9 @@ spec:
           metrics:
             enabled: false
             serviceMonitor:
+              enabled: false
               additionalLabels:
                 release: observability-kube-prometheus
-              enabled: true
               namespace: argocd
 
         # Ingress
