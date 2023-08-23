@@ -19,13 +19,13 @@ spec:
     chart: argo-cd
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: 5.43.5
+
+    # https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
     helm:
-      values: |
+      valuesObject:
         applicationSet:
           enabled: false
         notifications:
-          enabled: false
-        dex:
           enabled: false
         configs:
           secret:
@@ -74,19 +74,20 @@ spec:
               cpu: 500m
               memory: 1024Mi
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
+              namespace: argocd
               additionalLabels:
                 release: observability-kube-prometheus
-              namespace: argocd
       
         ## DEX ##
         dex:
+          enabled: true
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
               namespace: argocd
@@ -144,9 +145,9 @@ spec:
                   mountPath: /usr/local/bin/envsubst
 
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
               namespace: argocd
@@ -161,12 +162,17 @@ spec:
               cpu: 400m
               memory: 512Mi
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
               namespace: argocd
+          ingress:
+            enabled: true
+            ingressClassName: "nginx"
+            hosts:
+              - argo.local.com.br
 
         ## Redis ##
         redis:
@@ -178,20 +184,12 @@ spec:
               cpu: 120m
               memory: 256Mi
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
               additionalLabels:
                 release: observability-kube-prometheus
               namespace: argocd
-
-        # Ingress
-        server:
-          ingress:
-            enabled: true
-            ingressClassName: "nginx"
-            hosts:
-              - argo.local.com.br
 
   destination:
     server: "https://kubernetes.default.svc"
