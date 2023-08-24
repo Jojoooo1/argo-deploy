@@ -79,7 +79,7 @@ spec:
               enabled: true
               namespace: argocd
               additionalLabels:
-                release: observability-kube-prometheus
+                scrapWith: kube-prometheus-stack
       
         ## DEX ##
         dex:
@@ -89,7 +89,7 @@ spec:
             serviceMonitor:
               enabled: true
               additionalLabels:
-                release: observability-kube-prometheus
+                scrapWith: kube-prometheus-stack
               namespace: argocd
 
         ## RepoServer ##
@@ -149,7 +149,7 @@ spec:
             serviceMonitor:
               enabled: true
               additionalLabels:
-                release: observability-kube-prometheus
+                scrapWith: kube-prometheus-stack
               namespace: argocd
 
         ## Server ##
@@ -166,7 +166,7 @@ spec:
             serviceMonitor:
               enabled: true
               additionalLabels:
-                release: observability-kube-prometheus
+                scrapWith: kube-prometheus-stack
               namespace: argocd
           ingress:
             enabled: true
@@ -188,7 +188,7 @@ spec:
             serviceMonitor:
               enabled: true
               additionalLabels:
-                release: observability-kube-prometheus
+                scrapWith: kube-prometheus-stack
               namespace: argocd
 
   destination:
