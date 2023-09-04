@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: parent-argo-apps-observability
+  name: argo-apps-observability
   namespace: argocd
 
   # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
