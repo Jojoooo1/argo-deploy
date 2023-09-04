@@ -23,7 +23,7 @@ spec:
   source:
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
     targetRevision: main
-    path: overlays/local
+    path: overlays/local/argo-apps
     plugin:
       name: envsubst
       env:
