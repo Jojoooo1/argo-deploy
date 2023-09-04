@@ -45,6 +45,7 @@ installAndSyncArgoCD() {
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
   kubectl apply -f $ARGO_DIR/applications-data.yaml
+  kubectl apply -f $ARGO_DIR/applications.yaml
 
   until argocd app sync parent-argo-apps-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
   until argocd app sync parent-argo-apps-observability; do echo "awaiting parent-argo-apps-observability to be sync..." && sleep 10; done
