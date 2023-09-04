@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: parent-argo-apps-applications
+  namespace: argocd
+
+  # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+      
+  source:
+    repoURL: https://github.com/Jojoooo1/argo-deploy-applications.git
+    targetRevision: main
+    path: overlays/local/argo-apps
+    plugin:
+      name: envsubst
+      env:
+        - name: DNS
+          value: '-local'
+        - name: ENV
+          value: local
+        - name: PROJECT
+          value: sandbox
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
