@@ -89,5 +89,6 @@ addUrlToHost "kafka.local.com.br"
 addUrlToHost "redpanda.local.com.br"
 addUrlToHost "conduktor.local.com.br"
 addUrlToHost "clickhouse.local.com.br"
+addUrlToHost "api.local.com.br"
 
 message ">>> argo: http://argo.local.com.br - username: 'admin', password: '$ARGOCD_PWD'"
