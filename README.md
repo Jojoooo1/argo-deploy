@@ -33,6 +33,7 @@ make start
 | Infra | <https://github.com/Jojoooo1/argo-deploy-applications-infra> |
 | Observability | <https://github.com/Jojoooo1/argo-deploy-applications-observability> |
 | Data  | <https://github.com/Jojoooo1/argo-deploy-applications-data>  |
+| Experimental (do not recommend to self manage)  | <https://github.com/Jojoooo1/argo-deploy-applications-experimental>  |
 
 ### Limitations
 
