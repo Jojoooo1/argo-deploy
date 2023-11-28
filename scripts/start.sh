@@ -1,7 +1,9 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ARGO_CHART_VERSION="5.43.4"
+ARGO_CHART_VERSION="5.51.4"
+ARGO_APP_NAME="argocd-helm"
+ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/Jojoooo1/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
 message() {
   echo -e "\n######################################################################"
@@ -20,7 +22,7 @@ installK3s() {
   export KUBECONFIG=~/.kube/k3s-config
 }
 
-installAndSyncArgoCD() {
+installArgoCD() {
   message ">>> deploying ArgoCD"
 
   local ARGO_DIR="$DIR/../argo"
@@ -37,28 +39,29 @@ installAndSyncArgoCD() {
     --set configs.cm."timeout\.reconciliation"="10s"
 
   kubectl -n argocd rollout status deployment/argocd-server
+}
 
-  # Install ArgoCD applications and await new argocd-server to start with CMP plugins.
-  kubectl apply -f $ARGO_DIR/argocd-helm.yaml
-  syncArgoCD
-
-  kubectl apply -f $ARGO_DIR/applications-infra.yaml
-  kubectl apply -f $ARGO_DIR/applications-observability.yaml
-  kubectl apply -f $ARGO_DIR/applications-data.yaml
-  kubectl apply -f $ARGO_DIR/applications-experimental.yaml
-  kubectl apply -f $ARGO_DIR/applications.yaml
-
-  until argocd app sync argo-apps-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
-  until argocd app sync argo-apps-observability; do echo "awaiting argo-apps-observability to be sync..." && sleep 10; done
+setupSelfManagedArgoCD() {
+  kubectl apply -f $ARGO_HELM_CHART_PATH
 }
 
 syncArgoCD() {
-  message ">>> Awaiting ArgoCD applications to sync..."
+  message ">>> Awaiting ArgoCD to sync..."
   export ARGOCD_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
   until argocd login --core --username admin --password $ARGOCD_PWD --insecure; do :; done
   kubectl config set-context --current --namespace=argocd
-  until argocd app sync argocd; do echo "awaiting argocd to be sync..." && sleep 10; done
+  until argocd app sync $ARGO_APP_NAME; do echo "awaiting argocd to be sync..." && sleep 10; done
   kubectl -n argocd rollout status deployment/argocd-repo-server
+}
+
+installArgoApplications() {
+  message ">>> deploying ArgoCD infra-applications"
+  kubectl apply -f $ARGO_DIR/applications-infra.yaml
+  kubectl apply -f $ARGO_DIR/applications-observability.yaml
+  # kubectl apply -f $ARGO_DIR/applications-data.yaml
+  # kubectl apply -f $ARGO_DIR/applications-experimental.yaml
+  # kubectl apply -f $ARGO_DIR/applications.yaml
+  until argocd app sync argo-apps-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
 }
 
 deployNginxIngress() {
@@ -75,23 +78,26 @@ addUrlToHost() {
 }
 
 installK3s
-installAndSyncArgoCD
+installArgoCD
+setupSelfManagedArgoCD
+syncArgoCD
+installArgoApplications
 deployNginxIngress
 
-addUrlToHost "argo.local.com.br"
-addUrlToHost "apisix.local.com.br"
-addUrlToHost "identity.local.com.br"
-addUrlToHost "rabbitmq.local.com.br"
-addUrlToHost "grafana.local.com.br"
-addUrlToHost "prometheus.local.com.br"
-addUrlToHost "alertmanager.local.com.br"
-addUrlToHost "kafka.local.com.br"
-addUrlToHost "redpanda.local.com.br"
-addUrlToHost "conduktor.local.com.br"
-addUrlToHost "clickhouse.local.com.br"
-addUrlToHost "api.local.com.br"
-addUrlToHost "schema-registry.local.com.br"
-addUrlToHost "debezium-ui.local.com.br"
-addUrlToHost "debezium.local.com.br"
+addUrlToHost "argo.local.com"
+addUrlToHost "apisix.local.com"
+addUrlToHost "identity.local.com"
+addUrlToHost "rabbitmq.local.com"
+addUrlToHost "grafana.local.com"
+addUrlToHost "prometheus.local.com"
+addUrlToHost "alertmanager.local.com"
+addUrlToHost "kafka.local.com"
+addUrlToHost "redpanda.local.com"
+addUrlToHost "conduktor.local.com"
+addUrlToHost "clickhouse.local.com"
+addUrlToHost "api.local.com"
+addUrlToHost "schema-registry.local.com"
+addUrlToHost "debezium-ui.local.com"
+addUrlToHost "debezium.local.com"
 
-message ">>> argo: http://argo.local.com.br - username: 'admin', password: '$ARGOCD_PWD'"
+message ">>> argo: http://argo.local.com - username: 'admin', password: '$ARGOCD_PWD'"

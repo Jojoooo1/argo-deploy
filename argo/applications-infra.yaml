@@ -27,12 +27,17 @@ spec:
     plugin:
       name: envsubst
       env:
-        - name: DNS
-          value: '-local'
         - name: ENV
-          value: local
+          value: "local"
+
+        - name: DNS_ENV
+          value: "-local"
+
+        - name: DNS_DOMAIN
+          value: "cloud-diplomats.com"
+
         - name: PROJECT
-          value: sandbox
+          value: "sandbox"
 
   destination:
     server: https://kubernetes.default.svc
