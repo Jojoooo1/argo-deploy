@@ -104,4 +104,4 @@ addUrlToHost "schema-registry$ENV_DNS.$DNS"
 addUrlToHost "debezium-ui$ENV_DNS.$DNS"
 addUrlToHost "debezium$ENV_DNS.$DNS"
 
-message ">>> argo: http://argo-local.$DNS - username: 'admin', password: '$ARGOCD_PWD'"
+message ">>> argo: http://argo$ENV_DNS.$DNS - username: 'admin', password: '$ARGOCD_PWD'"
