@@ -84,7 +84,7 @@ addUrlToHost() {
 installK3s
 installArgoCD
 setupSelfManagedArgoCD
-syncArgoCDargo.lo
+syncArgoCD
 installArgoApplications
 deployNginxIngress
 
