@@ -23,21 +23,22 @@ spec:
   source:
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-infra.git
     targetRevision: main
-    path: overlays/local/argo-apps
+    path: argo-apps/overlays/local
     plugin:
       name: envsubst
       env:
         - name: ENV
-          value: "local"
-
-        - name: DNS_ENV
-          value: "-local"
-
-        - name: DNS_DOMAIN
-          value: "cloud-diplomats.com"
-
+          value: local
         - name: PROJECT
           value: "sandbox"
+
+        - name: DNS_PROJECT_ID
+          value: "sandbox"
+        - name: DNS_DOMAIN
+          value: "cloud-diplomats.com"
+        - name: DNS_ENV
+          value: '-local'
+
 
   destination:
     server: https://kubernetes.default.svc

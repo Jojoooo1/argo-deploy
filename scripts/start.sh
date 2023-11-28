@@ -5,6 +5,9 @@ ARGO_CHART_VERSION="5.51.4"
 ARGO_APP_NAME="argocd-helm"
 ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/Jojoooo1/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
+ENV_DNS="-local"
+DNS="cloud-diplomats.com"
+
 message() {
   echo -e "\n######################################################################"
   echo "# $1"
@@ -25,13 +28,12 @@ installK3s() {
 installArgoCD() {
   message ">>> deploying ArgoCD"
 
-  local ARGO_DIR="$DIR/../argo"
-
   # Install chart
   helm repo add argo https://argoproj.github.io/argo-helm
   helm repo update
-  helm uninstall argocd
-  helm install argocd argo/argo-cd --create-namespace --namespace=argocd --version $ARGO_CHART_VERSION \
+  helm uninstall $ARGO_APP_NAME
+  helm install $ARGO_APP_NAME argo/argo-cd --create-namespace --namespace=argocd --version $ARGO_CHART_VERSION \
+    --set fullnameOverride=argocd \
     --set applicationSet.enabled=false \
     --set notifications.enabled=false \
     --set dex.enabled=false \
@@ -55,6 +57,8 @@ syncArgoCD() {
 }
 
 installArgoApplications() {
+  local ARGO_DIR="$DIR/../argo"
+
   message ">>> deploying ArgoCD infra-applications"
   kubectl apply -f $ARGO_DIR/applications-infra.yaml
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
@@ -66,7 +70,7 @@ installArgoApplications() {
 
 deployNginxIngress() {
   message ">>> Deploying nginx-ingress"
-  until argocd app sync ingress-nginx; do echo "awaiting ingress-nginx to be deployed..." && sleep 20; done
+  until argocd app sync ingress-nginx-helm; do echo "awaiting ingress-nginx to be deployed..." && sleep 20; done
   export NGINX_INGRESS_IP=$(kubectl get service ingress-nginx-controller -n ingress-nginx -ojson | jq -r '.status.loadBalancer.ingress[].ip')
 }
 
@@ -80,24 +84,24 @@ addUrlToHost() {
 installK3s
 installArgoCD
 setupSelfManagedArgoCD
-syncArgoCD
+syncArgoCDargo.lo
 installArgoApplications
 deployNginxIngress
 
-addUrlToHost "argo.local.com"
-addUrlToHost "apisix.local.com"
-addUrlToHost "identity.local.com"
-addUrlToHost "rabbitmq.local.com"
-addUrlToHost "grafana.local.com"
-addUrlToHost "prometheus.local.com"
-addUrlToHost "alertmanager.local.com"
-addUrlToHost "kafka.local.com"
-addUrlToHost "redpanda.local.com"
-addUrlToHost "conduktor.local.com"
-addUrlToHost "clickhouse.local.com"
-addUrlToHost "api.local.com"
-addUrlToHost "schema-registry.local.com"
-addUrlToHost "debezium-ui.local.com"
-addUrlToHost "debezium.local.com"
+addUrlToHost "argo$ENV_DNS.$DNS"
+addUrlToHost "apisix$ENV_DNS.$DNS"
+addUrlToHost "identity$ENV_DNS.$DNS"
+addUrlToHost "rabbitmq$ENV_DNS.$DNS"
+addUrlToHost "grafana$ENV_DNS.$DNS"
+addUrlToHost "prometheus$ENV_DNS.$DNS"
+addUrlToHost "alertmanager$ENV_DNS.$DNS"
+addUrlToHost "kafka$ENV_DNS.$DNS"
+addUrlToHost "redpanda$ENV_DNS.$DNS"
+addUrlToHost "conduktor$ENV_DNS.$DNS"
+addUrlToHost "clickhouse$ENV_DNS.$DNS"
+addUrlToHost "api$ENV_DNS.$DNS"
+addUrlToHost "schema-registry$ENV_DNS.$DNS"
+addUrlToHost "debezium-ui$ENV_DNS.$DNS"
+addUrlToHost "debezium$ENV_DNS.$DNS"
 
-message ">>> argo: http://argo.local.com - username: 'admin', password: '$ARGOCD_PWD'"
+message ">>> argo: http://argo-local.$DNS - username: 'admin', password: '$ARGOCD_PWD'"
