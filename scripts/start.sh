@@ -5,8 +5,8 @@ ARGO_CHART_VERSION="5.51.4"
 ARGO_APP_NAME="argocd-helm"
 ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/Jojoooo1/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
-ENV_DNS="-local"
-DNS="cloud-diplomats.com"
+DNS_ENV="-local"
+DNS_DOMAIN="cloud-diplomats.com"
 
 message() {
   echo -e "\n######################################################################"
@@ -44,7 +44,7 @@ installArgoCD() {
 }
 
 setupSelfManagedArgoCD() {
-  kubectl apply -f $ARGO_HELM_CHART_PATH
+  curl $ARGO_HELM_CHART_PATH | sed "s|\${ARGOCD_ENV_DNS_ENV}|$DNS_ENV|g" | sed "s|\${ARGOCD_ENV_DNS_DOMAIN}|$DNS_DOMAIN|g" | kubectl create -f -
 }
 
 syncArgoCD() {
@@ -88,20 +88,20 @@ syncArgoCD
 installArgoApplications
 deployNginxIngress
 
-addUrlToHost "argo$ENV_DNS.$DNS"
-addUrlToHost "apisix$ENV_DNS.$DNS"
-addUrlToHost "identity$ENV_DNS.$DNS"
-addUrlToHost "rabbitmq$ENV_DNS.$DNS"
-addUrlToHost "grafana$ENV_DNS.$DNS"
-addUrlToHost "prometheus$ENV_DNS.$DNS"
-addUrlToHost "alertmanager$ENV_DNS.$DNS"
-addUrlToHost "kafka$ENV_DNS.$DNS"
-addUrlToHost "redpanda$ENV_DNS.$DNS"
-addUrlToHost "conduktor$ENV_DNS.$DNS"
-addUrlToHost "clickhouse$ENV_DNS.$DNS"
-addUrlToHost "api$ENV_DNS.$DNS"
-addUrlToHost "schema-registry$ENV_DNS.$DNS"
-addUrlToHost "debezium-ui$ENV_DNS.$DNS"
-addUrlToHost "debezium$ENV_DNS.$DNS"
+addUrlToHost "argo$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "apisix$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "identity$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "rabbitmq$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "grafana$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "prometheus$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "alertmanager$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "kafka$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "redpanda$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "conduktor$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "clickhouse$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "api$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "schema-registry$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "debezium-ui$DNS_ENV.$DNS_DOMAIN"
+addUrlToHost "debezium$DNS_ENV.$DNS_DOMAIN"
 
-message ">>> argo: http://argo$ENV_DNS.$DNS - username: 'admin', password: '$ARGOCD_PWD'"
+message ">>> argo: http://argo$DNS_ENV.$DNS_DOMAIN - username: 'admin', password: '$ARGOCD_PWD'"
