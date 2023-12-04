@@ -2,7 +2,7 @@
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 ARGO_CHART_VERSION="5.51.4"
-ARGO_APP_NAME="argocd-helm"
+ARGO_APP_NAME="infra-argocd-helm"
 ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/Jojoooo1/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
 DNS_ENV="-local"
@@ -70,7 +70,7 @@ installArgoApplications() {
 
 deployNginxIngress() {
   message ">>> Deploying nginx-ingress"
-  until argocd app sync ingress-nginx-helm; do echo "awaiting ingress-nginx to be deployed..." && sleep 20; done
+  until argocd app sync infra-ingress-nginx-helm; do echo "awaiting ingress-nginx to be deployed..." && sleep 20; done
   export NGINX_INGRESS_IP=$(kubectl get service ingress-nginx-controller -n ingress-nginx -ojson | jq -r '.status.loadBalancer.ingress[].ip')
 }
 
