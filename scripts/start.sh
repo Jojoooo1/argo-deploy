@@ -64,7 +64,7 @@ installArgoApplications() {
   kubectl apply -f $ARGO_DIR/applications-observability.yaml
   # kubectl apply -f $ARGO_DIR/applications-data.yaml
   # kubectl apply -f $ARGO_DIR/applications-experimental.yaml
-  # kubectl apply -f $ARGO_DIR/applications.yaml
+  # kubectl apply -f $ARGO_DIR/applications-cloud-diplomats.yaml
   until argocd app sync argo-apps-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
 }
 
