@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-apps-applications
+  name: argo-apps-cloud-diplomats
   namespace: argocd
 
   # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
@@ -23,7 +23,7 @@ spec:
   source:
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications.git
     targetRevision: main
-    path: overlays/local/argo-apps
+    path: applications/overlays/local/argo-apps
     plugin:
       name: envsubst
       env:
@@ -36,4 +36,4 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: cloud-diplomats
