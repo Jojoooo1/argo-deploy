@@ -75,11 +75,16 @@ deployNginxIngress() {
   export NGINX_INGRESS_IP=$(kubectl get service ingress-nginx-controller -n ingress-nginx -ojson | jq -r '.status.loadBalancer.ingress[].ip')
 }
 
-addUrlToHost() {
-  host=$1
-  if ! grep -q $host "/etc/hosts"; then
-    echo "$NGINX_INGRESS_IP $host" | sudo tee -a /etc/hosts
-  fi
+addUrlsToHost() {
+  hosts=("$@")
+
+  for host in "${hosts[@]}"; do
+    if ! grep -q "$host" "/etc/hosts"; then
+      echo "$NGINX_INGRESS_IP $host" | sudo tee -a /etc/hosts
+    else
+      echo "$host already exists in /etc/hosts"
+    fi
+  done
 }
 
 installK3s
@@ -88,21 +93,6 @@ setupSelfManagedArgoCD
 syncArgoCD
 installArgoApplications
 deployNginxIngress
-
-addUrlToHost "argo$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "apisix$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "identity$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "rabbitmq$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "grafana$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "prometheus$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "alertmanager$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "kafka$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "redpanda$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "conduktor$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "clickhouse$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "api$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "schema-registry$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "debezium-ui$DNS_ENV.$DNS_DOMAIN"
-addUrlToHost "debezium$DNS_ENV.$DNS_DOMAIN"
+addUrlsToHost "argo$DNS_ENV.$DNS_DOMAIN" "grafana$DNS_ENV.$DNS_DOMAIN" "prometheus$DNS_ENV.$DNS_DOMAIN" "alertmanager$DNS_ENV.$DNS_DOMAIN" "api$DNS_ENV.$DNS_DOMAIN" "identity$DNS_ENV.$DNS_DOMAIN" "rabbitmq$DNS_ENV.$DNS_DOMAIN" "kafka$DNS_ENV.$DNS_DOMAIN" "redpanda$DNS_ENV.$DNS_DOMAIN" "conduktor$DNS_ENV.$DNS_DOMAIN" "clickhouse$DNS_ENV.$DNS_DOMAIN" "schema-registry$DNS_ENV.$DNS_DOMAIN" "debezium-ui$DNS_ENV.$DNS_DOMAIN" "debezium$DNS_ENV.$DNS_DOMAIN"
 
 message ">>> argo: http://argo$DNS_ENV.$DNS_DOMAIN - username: 'admin', password: '$ARGOCD_PWD'"
