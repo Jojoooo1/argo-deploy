@@ -16,7 +16,13 @@ Network with wifi router configuration can block some port and leave the k3s wit
 Create local cluster with [k3s](https://k3s.io/), [ingress-nginx](https://kubernetes.github.io/ingress-nginx) and [argocd](https://argo-cd.readthedocs.io/en/stable):
 
 ```bash
-make start
+make start-k3s
+```
+
+Remove & uninstall [k3s](https://k3s.io/):
+
+```bash
+make delete-k3s
 ```
 
 ### Argocd dashboard
@@ -35,3 +41,4 @@ make start
 | Data  | <https://github.com/Jojoooo1/argo-deploy-applications-data>  |
 | Experimental (do not recommend to self manage)  | <https://github.com/Jojoooo1/argo-deploy-applications-experimental>  |
 | Cloud diplomats Applications | <https://github.com/Jojoooo1/argo-deploy-applications> |
+
