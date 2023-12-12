@@ -4,9 +4,8 @@ metadata:
   name: argo-apps-observability
   namespace: argocd
 
-  # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
 
 spec:
   project: default
@@ -21,6 +20,7 @@ spec:
     #   selfHeal: true
 
   source:
+    # Should point to your observability repo.
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
     targetRevision: main
     path: argo-apps/overlays/local
@@ -28,16 +28,11 @@ spec:
       name: envsubst
       env:
         - name: ENV
-          value: "local"
-
-        - name: DNS_ENV
-          value: "-local"
-
+          value: local
         - name: DNS_DOMAIN
           value: "cloud-diplomats.com"
-
-        - name: PROJECT
-          value: "sandbox"
+        - name: DNS_ENV
+          value: '-local'
 
   destination:
     server: https://kubernetes.default.svc

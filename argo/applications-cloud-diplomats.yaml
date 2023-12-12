@@ -3,10 +3,9 @@ kind: Application
 metadata:
   name: argo-apps-cloud-diplomats
   namespace: argocd
-
-  # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
+  
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io   # Add cascade delete behaviour (deletes both the app and its resources, rather than only the app.)
 
 spec:
   project: default
@@ -21,6 +20,7 @@ spec:
     #   selfHeal: true
       
   source:
+    # Should point to the Spring repo you're going to observe
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications.git
     targetRevision: main
     path: argo-apps/overlays/local
@@ -29,9 +29,6 @@ spec:
       env:
         - name: ENV
           value: local
-        - name: PROJECT
-          value: "sandbox"
-
         - name: DNS_DOMAIN
           value: "cloud-diplomats.com"
         - name: DNS_ENV
