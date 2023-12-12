@@ -6,10 +6,10 @@ Network with wifi router configuration can block some port and leave the k3s wit
 
 ## Dependencies
 
-* [kubectl](https://kubernetes.io/docs/tasks/tools) greater than 1.28
+* [kubectl](https://kubernetes.io/docs/tasks/tools)
 * [helm](https://helm.sh/docs/intro/install)
 * [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize)
-* [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation) greater than 2.9
+* [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation)
 
 ## Getting Started
 
@@ -35,7 +35,3 @@ make start
 | Data  | <https://github.com/Jojoooo1/argo-deploy-applications-data>  |
 | Experimental (do not recommend to self manage)  | <https://github.com/Jojoooo1/argo-deploy-applications-experimental>  |
 | Cloud diplomats Applications | <https://github.com/Jojoooo1/argo-deploy-applications> |
-
-### Limitations
-
-* open issue working with multiple source and CMPs <https://github.com/argoproj/argo-cd/pull/12508>
