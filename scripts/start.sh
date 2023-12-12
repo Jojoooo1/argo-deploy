@@ -1,12 +1,16 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ARGO_CHART_VERSION="5.51.4"
+ARGO_CHART_VERSION="5.51.6"
 ARGO_APP_NAME="infra-argocd-helm"
-ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/Jojoooo1/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
-DNS_ENV="-local"
-DNS_DOMAIN="cloud-diplomats.com"
+export ENV="local"
+export DNS_ENV="-local"
+export DNS_DOMAIN="cloud-diplomats.com"
+GITHUB_USER="Jojoooo1"
+export GITHUB_REPO="https://github.com/$GITHUB_USER"
+
+ARGO_HELM_CHART_PATH="https://raw.githubusercontent.com/$GITHUB_USER/argo-deploy-applications-infra/main/argo-apps/base/argocd-helm.yaml"
 
 message() {
   echo -e "\n######################################################################"
@@ -60,11 +64,12 @@ installArgoApplications() {
   local ARGO_DIR="$DIR/../argo"
 
   message ">>> deploying ArgoCD infra-applications"
-  kubectl apply -f $ARGO_DIR/applications-infra.yaml
-  kubectl apply -f $ARGO_DIR/applications-observability.yaml
-  kubectl apply -f $ARGO_DIR/applications-cloud-diplomats.yaml
-  # kubectl apply -f $ARGO_DIR/applications-data.yaml
-  # kubectl apply -f $ARGO_DIR/applications-experimental.yaml
+  envsubst <$ARGO_DIR/applications-infra.yaml | kubectl apply -f -
+  envsubst <$ARGO_DIR/applications-observability.yaml | kubectl apply -f -
+  envsubst <$ARGO_DIR/applications-cloud-diplomats.yaml | kubectl apply -f -
+  # envsubst <$ARGO_DIR/applications-data.yaml | kubectl apply -f -
+  # envsubst <$ARGO_DIR/applications-experimental.yaml | kubectl apply -f -
+
   until argocd app sync argo-apps-observability; do echo "awaiting applications-observability to be sync..." && sleep 10; done
   until argocd app sync argo-apps-infra; do echo "awaiting applications-infra to be sync..." && sleep 10; done
 }

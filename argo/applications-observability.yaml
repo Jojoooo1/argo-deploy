@@ -21,18 +21,20 @@ spec:
 
   source:
     # Should point to your observability repo.
-    repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
+    repoURL: ${GITHUB_REPO}/argo-deploy-applications-observability.git
     targetRevision: main
     path: argo-apps/overlays/local
     plugin:
       name: envsubst
       env:
         - name: ENV
-          value: local
+          value: ${ENV}
         - name: DNS_DOMAIN
-          value: "cloud-diplomats.com"
+          value: ${DNS_DOMAIN}
         - name: DNS_ENV
-          value: '-local'
+          value: ${DNS_ENV}
+        - name: GITHUB_REPO
+          value: ${GITHUB_REPO}
 
   destination:
     server: https://kubernetes.default.svc

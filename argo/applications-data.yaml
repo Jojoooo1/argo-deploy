@@ -21,19 +21,21 @@ spec:
       
   source:
     # Should point to data repo you're going to experiment with
-    repoURL: https://github.com/Jojoooo1/argo-deploy-applications-data.git
+    repoURL: ${GITHUB_REPO}/argo-deploy-applications-data.git
     targetRevision: main
     path: overlays/local/argo-apps
     plugin:
       name: envsubst
       env:
         - name: ENV
-          value: local
+          value: ${ENV}
         - name: DNS_DOMAIN
-          value: "cloud-diplomats.com"
+          value: ${DNS_DOMAIN}
         - name: DNS_ENV
-          value: '-local'
-
+          value: ${DNS_ENV}
+        - name: GITHUB_REPO
+          value: ${GITHUB_REPO}
+          
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
