@@ -1,9 +1,5 @@
 # Argo deploy personal labs
 
-## Network
-
-Network with wifi router configuration can block some port and leave the k3s without stable communication. If you want to make sure there is none, try using your 4G network.
-
 ## Dependencies
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools)
@@ -42,3 +38,6 @@ make delete-k3s
 | Experimental (do not recommend to self manage)  | <https://github.com/Jojoooo1/argo-deploy-applications-experimental>  |
 | Cloud diplomats Applications | <https://github.com/Jojoooo1/argo-deploy-applications> |
 
+## Limitations
+
+Wifi router can block some port and leave k3s without stable communication. If you want to make sure there is none, try using your 4G network.
