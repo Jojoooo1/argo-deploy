@@ -87,7 +87,7 @@ addUrlsToHost() {
     if ! grep -q "$host" "/etc/hosts"; then
       echo "$NGINX_INGRESS_IP $host" | sudo tee -a /etc/hosts
     else
-      echo "$host already exists in /etc/hosts"
+      echo "$host already exists in /etc/hosts skipping."
     fi
   done
 }
