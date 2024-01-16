@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ARGO_CHART_VERSION="5.51.6"
+ARGO_CHART_VERSION="5.52.2"
 ARGO_APP_NAME="infra-argocd-helm"
 
 export ENV="local"
@@ -98,6 +98,6 @@ setupSelfManagedArgoCD
 syncArgoCD
 installArgoApplications
 deployNginxIngress
-addUrlsToHost "argo$DNS_ENV.$DNS_DOMAIN" "grafana$DNS_ENV.$DNS_DOMAIN" "prometheus$DNS_ENV.$DNS_DOMAIN" "alertmanager$DNS_ENV.$DNS_DOMAIN" "api$DNS_ENV.$DNS_DOMAIN" "identity$DNS_ENV.$DNS_DOMAIN" "rabbitmq$DNS_ENV.$DNS_DOMAIN" "kafka$DNS_ENV.$DNS_DOMAIN" "redpanda$DNS_ENV.$DNS_DOMAIN" "conduktor$DNS_ENV.$DNS_DOMAIN" "clickhouse$DNS_ENV.$DNS_DOMAIN" "schema-registry$DNS_ENV.$DNS_DOMAIN" "debezium-ui$DNS_ENV.$DNS_DOMAIN" "debezium$DNS_ENV.$DNS_DOMAIN"
+addUrlsToHost "argo$DNS_ENV.$DNS_DOMAIN" "argo-rollout$DNS_ENV.$DNS_DOMAIN" "grafana$DNS_ENV.$DNS_DOMAIN" "prometheus$DNS_ENV.$DNS_DOMAIN" "alertmanager$DNS_ENV.$DNS_DOMAIN" "api$DNS_ENV.$DNS_DOMAIN" "identity$DNS_ENV.$DNS_DOMAIN" "rabbitmq$DNS_ENV.$DNS_DOMAIN" "kafka$DNS_ENV.$DNS_DOMAIN" "redpanda$DNS_ENV.$DNS_DOMAIN" "conduktor$DNS_ENV.$DNS_DOMAIN" "clickhouse$DNS_ENV.$DNS_DOMAIN" "schema-registry$DNS_ENV.$DNS_DOMAIN" "debezium-ui$DNS_ENV.$DNS_DOMAIN" "debezium$DNS_ENV.$DNS_DOMAIN"
 
 message ">>> argo: http://argo$DNS_ENV.$DNS_DOMAIN - username: 'admin', password: '$ARGOCD_PWD'"
