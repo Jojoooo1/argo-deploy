@@ -25,7 +25,7 @@ message() {
 
 installK3s() {
   [[ -f /usr/local/bin/k3s-uninstall.sh ]] && /usr/local/bin/k3s-uninstall.sh
-  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.28.4+k3s2" INSTALL_K3S_EXEC="server --write-kubeconfig ~/.kube/k3s-config --write-kubeconfig-mode 600 --disable traefik" sh
+  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.29.1+k3s2" INSTALL_K3S_EXEC="server --write-kubeconfig ~/.kube/k3s-config --write-kubeconfig-mode 600 --disable traefik" sh
   export KUBECONFIG=~/.kube/k3s-config
 }
 
