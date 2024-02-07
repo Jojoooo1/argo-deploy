@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ARGO_CHART_VERSION="5.52.2"
+ARGO_CHART_VERSION="5.55.0"
 ARGO_APP_NAME="infra-argocd-helm"
 
 export ENV="local"
