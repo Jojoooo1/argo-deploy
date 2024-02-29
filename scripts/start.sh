@@ -1,7 +1,8 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ARGO_CHART_VERSION="5.55.0"
+K3S_VERSION="v1.29.2-rc3+k3s1"
+ARGO_CHART_VERSION="6.4.1"
 ARGO_APP_NAME="infra-argocd-helm"
 
 export ENV="local"
@@ -25,7 +26,7 @@ message() {
 
 installK3s() {
   [[ -f /usr/local/bin/k3s-uninstall.sh ]] && /usr/local/bin/k3s-uninstall.sh
-  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.29.1+k3s2" INSTALL_K3S_EXEC="server --write-kubeconfig ~/.kube/k3s-config --write-kubeconfig-mode 600 --disable traefik" sh
+  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$K3S_VERSION INSTALL_K3S_EXEC="server --write-kubeconfig ~/.kube/k3s-config --write-kubeconfig-mode 600 --disable traefik" sh
   export KUBECONFIG=~/.kube/k3s-config
 }
 
