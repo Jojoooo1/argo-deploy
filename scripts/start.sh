@@ -2,12 +2,13 @@
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 K3S_VERSION="v1.29.2-rc3+k3s1"
-ARGO_CHART_VERSION="6.4.1"
+ARGO_CHART_VERSION="6.7.2"
 ARGO_APP_NAME="infra-argocd-helm"
 
 export ENV="local"
-export DNS_ENV="-local"
+export DNS_ENV="-$ENV"
 export DNS_DOMAIN="cloud-diplomats.com"
+
 GITHUB_USER="Jojoooo1"
 export GITHUB_REPO="https://github.com/$GITHUB_USER"
 
