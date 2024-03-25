@@ -21,10 +21,9 @@ Remove & uninstall [k3s](https://k3s.io/):
 make delete-k3s
 ```
 
-### Argocd dashboard
+### ArgoCD
 
-* [http://argo-local.cloud-diplomats.com](http://argo-local.cloud-diplomats.com/)
-  * login: admin password: see the logs
+* [http://argo-local.cloud-diplomats.com](http://argo-local.cloud-diplomats.com/) - login: admin, password: see `make start-k3s` logs
 
 ### Apps-of-Apps
 
