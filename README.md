@@ -1,13 +1,13 @@
 # Argo deploy personal labs
 
-## Dependencies
+### Dependencies
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools)
 * [helm](https://helm.sh/docs/intro/install)
 * [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize)
 * [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation)
 
-## Getting Started
+### Getting Started
 
 Create local cluster with [k3s](https://k3s.io/), [ingress-nginx](https://kubernetes.github.io/ingress-nginx) and [argocd](https://argo-cd.readthedocs.io/en/stable):
 
