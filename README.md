@@ -1,4 +1,4 @@
-# Argo deploy personal labs
+# ArgoCD infra & observability labs
 
 ### Dependencies
 
