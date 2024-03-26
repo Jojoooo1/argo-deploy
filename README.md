@@ -6,6 +6,7 @@
 * [helm](https://helm.sh/docs/intro/install)
 * [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize)
 * [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation)
+* [envsubst](https://www.baeldung.com/linux/envsubst-command) (should already be present in your linux system)
 
 ## Getting Started
 
