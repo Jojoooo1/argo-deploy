@@ -1,6 +1,6 @@
-# Argo deploy personal labs
+# ArgoCD infra & observability labs
 
-## Dependencies
+### Dependencies
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools)
 * [helm](https://helm.sh/docs/intro/install)
@@ -8,7 +8,7 @@
 * [argocd](https://argo-cd.readthedocs.io/en/stable/cli_installation)
 * [envsubst](https://www.baeldung.com/linux/envsubst-command) (should already be present in your linux system)
 
-## Getting Started
+### Getting Started
 
 Create local cluster with [k3s](https://k3s.io/), [ingress-nginx](https://kubernetes.github.io/ingress-nginx) and [argocd](https://argo-cd.readthedocs.io/en/stable):
 
@@ -22,10 +22,9 @@ Remove & uninstall [k3s](https://k3s.io/):
 make delete-k3s
 ```
 
-### Argocd dashboard
+### ArgoCD
 
-* [http://argo-local.cloud-diplomats.com](http://argo-local.cloud-diplomats.com/)
-  * login: admin password: see the logs
+* [http://argo-local.cloud-diplomats.com](http://argo-local.cloud-diplomats.com/) - login: admin, password: see `make start-k3s` logs
 
 ### Apps-of-Apps
 
