@@ -2,7 +2,7 @@
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 K3S_VERSION="v1.30.0+k3s1"
-ARGO_CHART_VERSION="7.1.1"
+ARGO_CHART_VERSION="7.1.5"
 ARGO_APP_NAME="infra-argocd-helm"
 
 # We need to use export to make the variables available in the envsubst command
