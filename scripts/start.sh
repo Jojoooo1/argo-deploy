@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-K3S_VERSION="v1.30.0+k3s1"
-ARGO_CHART_VERSION="7.1.5"
+K3S_VERSION="v1.30.2+k3s1"
+ARGO_CHART_VERSION="7.3.8"
 ARGO_APP_NAME="infra-argocd-helm"
 
 # We need to use export to make the variables available in the envsubst command
@@ -69,7 +69,7 @@ installArgoApplications() {
   message ">>> deploying ArgoCD infra-applications"
   envsubst <$ARGO_DIR/applications-infra.yaml | kubectl apply -f -
   envsubst <$ARGO_DIR/applications-observability.yaml | kubectl apply -f -
-  envsubst <$ARGO_DIR/applications-cloud-diplomats.yaml | kubectl apply -f -
+  # envsubst <$ARGO_DIR/applications-cloud-diplomats.yaml | kubectl apply -f -
   # envsubst <$ARGO_DIR/applications-data.yaml | kubectl apply -f -
   # envsubst <$ARGO_DIR/applications-experimental.yaml | kubectl apply -f -
 
